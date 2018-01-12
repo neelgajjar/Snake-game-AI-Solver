@@ -1,7 +1,7 @@
-## Snake-AI-GameSolver
+# Snake-AI-GameSolver
 For a computer to play Snake automatically there are three
 searching algorithms related to artiﬁcial intelligence, Best First Search, A* Search and improved A* Search with forward checking.
-# Characteristics 
+## Characteristics 
 In the most general way, our implementation consists of the snake moving on a square board, trying to eat  
 as many apples as possible without biting itself.  
 Once the snake eats an apple, a new apple is placed in a free position on the board and the snake length grows by one unit.   
@@ -20,7 +20,7 @@ The following are some basic rules followed by our implementation:
 4. The board size is ﬁxed to square.  
 5. After an apple is eaten by the snake, another apple is placed randomly with uniform probability on one available squares of the board.     Here the availability of a square is denoted by the fact that it is not occupied by the snake.
 
-# 1. Best First Search
+### 1. Best First Search
 
 This Greedy Best-First Search algorithm has a one-move horizon and only considers moving the snake to the position on the board that appears to be closest to the goal, i.e. apple. We use Manhattan distance to deﬁne how close the snake head is to the apple. This method has almost guaranteed that the snake will be able to eat in an optimal (shortest) way at least the ﬁrst four apples.
 
@@ -28,14 +28,14 @@ However, the one-step horizon also makes it easy to get stuck on local minima an
 
 ![bfs](https://user-images.githubusercontent.com/8587332/34895417-86ce6f9c-f79a-11e7-82d2-66e4d64df88f.gif)
 
-# 2. A* Search
+### 2. A* Search
 A* incorporates a heuristic in a multiple move horizon. Before taking action, it considers not only where the goal
 is and how far it is, but also the current state it has searched so far.
 This A* algorithm uses the Manhattan distance from the head to the apple as a heuristic and the number of
 steps as the “cost so far”. Each iteration of the algorithm lasts until a path is found that leads the snake to eat an apple. It improves the Best First Search algorithm by ﬁnding a full path to the apple and not stopping at the ﬁrst move, this has the advantage of not getting stuck at a dead end on the way to the apple. Without memory or time restrictions, the algorithm is guaranteed to ﬁndan optimal path to the apple if one exists.
 However, the maximum number of nodes  expanded is limited. This makes the algorithm stop if a path to goal cannot be found (for any reason). In case the maximum nodes bound is reached, the algorithm will switch back to Best First Search for that iteration.
 
-# Pseudocode
+### Pseudocode
 ``` 
 if (can eat food)
       Send a virtual snake to eat,
@@ -50,7 +50,7 @@ if (can not eat food can not follow the tail) Random stroll,
 However there is a higher probability of a situation that the snake head will often turn around the tail.
 ![automatedsnakegamesolvers2](https://user-images.githubusercontent.com/8587332/34896799-12aad906-f7a0-11e7-80fb-5a888692219c.jpg)
 
-# 3. A* Search with Forward Checking
+### 3. A* Search with Forward Checking
 The A* algorithm still has some shortcomings. One of the shortcomings includes the fact that, once the apple is eaten, the snake can reach a dead end which can be avoided with other paths. In other words, the algorithm does not take into account the effects of the selected path once the apple is eaten.
 ![automatedsnakegamesolvers](https://user-images.githubusercontent.com/8587332/34896467-d58ffa48-f79e-11e7-8bb6-b0b7465e29ce.jpg)
 To avoid these dead ends, the A* algorithm is also equipped with a Breadth First Search algorithm that is used to compute if a path to a goal also leads to a dead end. Once an iteration of the A* algorithm ends, it will then call the Breadth First Search algorithm starting at the goal state found by the A*algorithm.   
